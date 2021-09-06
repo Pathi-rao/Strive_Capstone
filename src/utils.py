@@ -30,12 +30,6 @@ def set_model_params(
     return model
 
 
-"""
-    The function set_initial_params zero-initializes the parameters of the model. This requires prior information about the attribute names, 
-    the number of classes and features of your dataset to calculate the size of the parameter matrices of the model. An alternative method for 
-    initializing the parameters could be to fit the model using a few dummy samples that mimic the dimensions of the actual dataset.
-    """
-
 def set_initial_params(model: LogisticRegression):
     """
     Sets initial parameters as zeros
