@@ -43,7 +43,7 @@ def set_initial_params(model: LogisticRegression):
         model.intercept_ = np.zeros((n_classes,))
 
 
-def partition(X: np.ndarray, y: np.ndarray, num_partitions: int) -> XYList: # returns list of Xy (read more about function annotations)  ????
+def partition(X: np.ndarray, y: np.ndarray, num_partitions: int) -> XYList: # returns list of Xy (read more about function annotations)
     """Split X and y into a number of partitions."""
     return list(
         zip(np.array_split(X, num_partitions), 
