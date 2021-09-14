@@ -3,7 +3,6 @@ import utils
 import numpy as np
 from sklearn.metrics import log_loss
 from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import OneHotEncoder
 
 from typing import Dict
 
@@ -19,6 +18,9 @@ def get_eval_fn(model: LogisticRegression):
 
     # Load test data here to avoid the overhead of doing it in 
     # `evaluate` itself
+    print(' ')
+    print('Setting up the server.... ')
+    print(' ')
     _, X_test, _, y_test = dh.data_processor()
 
     # The `evaluate` function will be called after every round

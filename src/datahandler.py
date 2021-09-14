@@ -37,12 +37,17 @@ def data_processor():
     # print(' ')
     df['threat_type'] = df['threat_type'].str.replace('.', '', regex=True)
     # df = df.drop_duplicates()
-    
+    # print(f'The total number of unique threats in the data is... : ', len(df['threat_type'].unique()))
+    # print(f'The unique data threat types are... : ', df['threat_type'].value_counts())
     #drop the columns whose total count is less than 20
-    indexNames = df[(df['threat_type'] == 'spy') | (df['threat_type'] == 'perl') | (df['threat_type'] == 'phf') 
+    indexNames = df.index[(df['threat_type'] == 'spy') | (df['threat_type'] == 'perl') | (df['threat_type'] == 'phf') 
                 | (df['threat_type'] == 'multihop') | (df['threat_type'] == 'ftp_write') | (df['threat_type'] == 'loadmodule') 
-                | (df['threat_type'] == 'rootkit') | (df['threat_type'] == 'imap')].index
-    df.drop(indexNames , inplace=True)
+                | (df['threat_type'] == 'rootkit') | (df['threat_type'] == 'imap') | (df['threat_type'] == 'warezmaster')
+                | (df['threat_type'] == 'land')  | (df['threat_type'] == 'buffer_overflow')]
+    # print(df.head())
+    df.drop(indexNames  , inplace=True)
+
+    # print(f'The unique data threat types are... : ', df['threat_type'].value_counts())
 
     # 34 numerical columns are considered for training
     num_df = df[num_col]
@@ -70,4 +75,10 @@ def data_processor():
     return X_train, X_test, y_train, y_test
 
 
-# X_train, X_test, y_train, y_test = data_processor()
+X_train, X_test, y_train, y_test = data_processor()
+# print(len(np.unique(y_train)))
+# print(len(np.unique(y_test)))
+# # print(X_train.shape)
+# print(X_test.shape)
+# print(y_train.shape)
+# print(y_test.shape)

@@ -1,5 +1,6 @@
 # do the necessary imports
 import warnings
+from joblib import dump, load
 import flwr as fl
 import numpy as np
 import datahandler as dh
@@ -12,13 +13,17 @@ import utils
 
 X_train, X_test, y_train, y_test = dh.data_processor()
 
-#print(X_train.shape, y_train.shape)
-
+# print(f'Shape of X_trian and y_train before partition.... ', X_train.shape, y_train.shape)
+# print(f'Unique classes are.. ', len(np.unique(y_train)))
+print(' ')
+print('Setting up the client.... ')
 # Split train set into 10 partitions and randomly use one for training.
+print(' ')
 partition_id = np.random.choice(10)
 (X_train, y_train) = utils.partition(X_train, y_train, 10)[partition_id]
 
-#print(X_train.shape, y_train.shape)
+# print(f'Shape of X_trian and y_train after partition.... ', X_train.shape, y_train.shape)
+# print(f'Unique classes are.. ', len(np.unique(y_train)))
 
 
 # Create LogisticRegression Model
@@ -41,8 +46,16 @@ class KDDClient(fl.client.NumPyClient):
         # Ignore convergence failure due to low local epochs
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
+            # print(f'Shape of X_trian and y_train before model fitting.... ', y_train.shape)
+            # print(f'Unique classes are.. ', len(np.unique(y_train)))
+            # print(y_train)
             model.fit(X_train, y_train)
+            # print(model.classes)
             print(f"Training finished for round {config['rnd']}")
+
+        dump(model, 'Federated_model.joblib')
+        print("Model has been locally saved.")
+
         return utils.get_model_parameters(model), len(X_train), {}
 
     def evaluate(self, parameters, config): # type: ignore
