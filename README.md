@@ -1,4 +1,4 @@
-# Anamoly Detection in Smart Buildings
+# Anomaly Detection in Smart Buildings
 ### using Federated Learning
                                      
 <!-- PROJECT LOGO -->
