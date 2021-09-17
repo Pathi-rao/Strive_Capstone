@@ -48,5 +48,5 @@ strategy = fl.server.strategy.FedAvg(
 fl.server.start_server(
     "localhost:8080",
     strategy=strategy,
-    config={"num_rounds": 5}
+    config={"num_rounds": 50}
 )

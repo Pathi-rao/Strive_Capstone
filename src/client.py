@@ -7,6 +7,7 @@ import datahandler as dh
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import log_loss
+from sklearn.utils import class_weight
 
 import utils
 
@@ -25,6 +26,11 @@ partition_id = np.random.choice(10)
 # print(f'Shape of X_trian and y_train after partition.... ', X_train.shape, y_train.shape)
 # print(f'Unique classes are.. ', len(np.unique(y_train)))
 
+classes = np.unique(y_train)
+cw = class_weight.compute_class_weight('balanced',
+                                                classes,
+                                                y_train)
+weights = dict(zip(classes,cw))
 
 # Create LogisticRegression Model
 model = LogisticRegression(
@@ -32,7 +38,7 @@ penalty="l2",
 max_iter=1, # local epoch
 warm_start=True, # prevent refreshing weights when fitting
 )
-
+model = LogisticRegression(class_weight = weights)
 # Setting initial parameters, akin to model.compile for keras models
 utils.set_initial_params(model)
 
@@ -49,6 +55,7 @@ class KDDClient(fl.client.NumPyClient):
             # print(f'Shape of X_trian and y_train before model fitting.... ', y_train.shape)
             # print(f'Unique classes are.. ', len(np.unique(y_train)))
             # print(y_train)
+            
             model.fit(X_train, y_train)
             # print(model.classes)
             print(f"Training finished for round {config['rnd']}")
