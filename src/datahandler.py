@@ -43,11 +43,11 @@ def data_processor():
     indexNames = df.index[(df['threat_type'] == 'spy') | (df['threat_type'] == 'perl') | (df['threat_type'] == 'phf') 
                 | (df['threat_type'] == 'multihop') | (df['threat_type'] == 'ftp_write') | (df['threat_type'] == 'loadmodule') 
                 | (df['threat_type'] == 'rootkit') | (df['threat_type'] == 'imap') | (df['threat_type'] == 'warezmaster')
-                | (df['threat_type'] == 'land')  | (df['threat_type'] == 'buffer_overflow')]
+                | (df['threat_type'] == 'land')  | (df['threat_type'] == 'buffer_overflow') | (df['threat_type'] == 'guess_passwd')]
     # print(df.head())
     df.drop(indexNames  , inplace=True)
 
-    # print(f'The unique data threat types are... : ', df['threat_type'].value_counts())
+    print(f'The unique data threat types are... : ', df['threat_type'].value_counts())
 
     # 34 numerical columns are considered for training
     num_df = df[num_col]
