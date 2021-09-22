@@ -75,7 +75,7 @@ def data_processor():
     return X_train, X_test, y_train, y_test
 
 
-X_train, X_test, y_train, y_test = data_processor()
+# X_train, X_test, y_train, y_test = data_processor()
 # print(len(np.unique(y_train)))
 # print(len(np.unique(y_test)))
 # # print(X_train.shape)
